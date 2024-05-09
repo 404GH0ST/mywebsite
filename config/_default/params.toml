@@ -74,6 +74,7 @@ showTableOfContents = true
 showTaxonomies = true
 showAuthorsBadges = false
 showWordCount = true
+showComments = true
 # sharingLinks = [ "linkedin", "twitter", "reddit", "pinterest", "facebook", "email", "whatsapp", "telegram"]
 showZenMode = true
 
@@ -146,3 +147,16 @@ measurementId = "G-8FYVHJB5RL"
 # bing = ""
 # pinterest = ""
 # yandex = ""
+
+[giscus]
+repo = "404GH0ST/mywebsite"
+repoID = "R_kgDOL47Gsw"
+category = "Announcements"
+categoryID = "DIC_kwDOL47Gs84CfPo1"
+mapping = "title"
+reactionsEnabled = "1"
+emitMetadata = "0"
+inputPosition = "bottom"
+theme = "preferred_color_scheme"
+lang = "en"
+loading = "lazy"
