@@ -1,6 +1,6 @@
 ---
 title: "Welcome to my blog"
-description: "Welcome to 404gh0st.pages.dev blog"
+description: "Welcome to 404Gh0st blog"
 ---
 
 {{< lead >}}
