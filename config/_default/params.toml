@@ -90,9 +90,9 @@ showLikes = false
 showTableOfContents = false
 showCards = false
 groupByYear = false
-cardView = false
+cardView = true
 cardViewScreenWidth = false
-constrainItemsWidth = false
+constrainItemsWidth = true
 
 [sitemap]
 excludedKinds = ["taxonomy", "term"]
@@ -143,10 +143,10 @@ measurementId = "G-8FYVHJB5RL"
 # globalWidgetPosition = "Right"
 
 [verification]
-# google = ""
-# bing = ""
+google = "Nmy07wwG8VfmrLuLSurrBlmttIvD9oi9GPf7oDXo1Pc"
+bing = "Nmy07wwG8VfmrLuLSurrBlmttIvD9oi9GPf7oDXo1Pc"
 # pinterest = ""
-# yandex = ""
+yandex = "ec63de8ea1ca890e"
 
 [giscus]
 repo = "404GH0ST/mywebsite"
