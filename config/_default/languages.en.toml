@@ -13,7 +13,7 @@ logo = "logo.png"
 description = "My awesome blog, with some awesome stuff."
 copyright = "© { year } 404Gh0st"
 
-[author]
+[params.author]
 name = "404Gh0st"
 image = "404Gh0st.png"
 headline = "Cybersecurity Enthusiast"
