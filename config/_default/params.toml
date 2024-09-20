@@ -18,8 +18,8 @@ enableCodeCopy = true
 disableImageOptimization = false
 disableTextInHeader = false
 
-defaultBackgroundImage = "astronaut-nord.png" # used as default for background images 
-# defaultFeaturedImage = "IMAGE.jpg" # used as default for featured images in all articles
+defaultBackgroundImage = "umijin.png" # used as default for background images 
+defaultFeaturedImage = "umijin.jpg" # used as default for featured images in all articles
 
 highlightCurrentMenuArea = true
 smartTOC = true
@@ -37,7 +37,7 @@ showScrollToTop = true
 
 [homepage]
 layout = "background"                # valid options: page, profile, hero, card, background, custom
-homepageImage = "astronaut-nord.png" # used in: hero, and card
+homepageImage = "umijin.png" # used in: hero, and card
 showRecent = true
 showRecentItems = 5
 showMoreLink = true
@@ -69,10 +69,10 @@ showPagination = true
 invertPagination = false
 showReadingTime = true
 showTableOfContents = true
-# showRelatedContent = false
-# relatedContentLimit = 3
+showRelatedContent = true
+relatedContentLimit = 3
 showTaxonomies = true
-showAuthorsBadges = false
+# showAuthorsBadges = true
 showWordCount = true
 showComments = true
 # sharingLinks = [ "linkedin", "twitter", "reddit", "pinterest", "facebook", "email", "whatsapp", "telegram"]

@@ -8,10 +8,10 @@ displayName = "EN"
 isoCode = "en"
 rtl = false
 dateFormat = "2 January 2006"
-# logo = "logo.png"
+logo = "logo.png"
 # secondaryLogo = "img/secondary-logo.png"
 description = "My awesome blog, with some awesome stuff."
-# copyright = "Copy, _right?_ :thinking_face:"
+copyright = "© { year } 404Gh0st"
 
 [author]
 name = "404Gh0st"

